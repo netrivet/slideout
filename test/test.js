@@ -3,6 +3,9 @@ if (exports) {
   var jsdom = require('jsdom');
   var html = fs.readFileSync('./test/index.html', 'utf-8');
   window = jsdom.jsdom(html).parentWindow;
+  window.navigator = {
+    userAgent: 'lol-cli'
+  };
   var Slideout = require('../');
   var assert = require('better-assert');
 }
