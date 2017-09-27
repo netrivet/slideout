@@ -74,6 +74,9 @@ function Slideout(options) {
   this._opened = false;
   this._preventOpen = false;
   this._touch = options.touch === undefined ? true : options.touch && true;
+  this._shouldMove = typeof(options.shouldMove) === 'function' ? options.shouldMove : function() {
+    return true;
+  }
 
   // Sets panel
   this.panel = options.panel;
@@ -259,6 +262,10 @@ Slideout.prototype._initTouchEvents = function() {
   this._onTouchMoveFn = function(eve) {
 
     if (scrolling || self._preventOpen || typeof eve.touches === 'undefined') {
+      return;
+    }
+
+    if (!self._shouldMove()) {
       return;
     }
 
